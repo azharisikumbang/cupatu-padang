@@ -14,6 +14,8 @@
             </div>
         @endif
 
+        <x-auth-session-status class="mb-4" :status="session('session')" />
+
         <form action="{{ route('order-customer-info.create') }}" method="post">
             @csrf
             <div class="max-w-7xl mx-auto p-6 lg:p-8 mt-8 bg-dots-darker">
@@ -43,7 +45,7 @@
                     </div>
                     <div class="flex flex-col gap-4">
                         <div class="p-6 bg-white rounded-lg shadow shadow-gray-500/20">
-                            <h3 class="uppercase text-md font-medium border-b pb-2 mb-4">Keranjang pesanan</h3>
+                            <h3 class="uppercase text-md font-medium border-b pb-2 mb-4">Daftar pesanan anda</h3>
                             <div class="flex flex-col gap-2">
                                 <template x-for="cart in properties.data.cart.items">
                                     <div class="flex justify-between">

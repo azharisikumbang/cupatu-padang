@@ -12,8 +12,13 @@ use Illuminate\View\View;
 
 class OrderCustomerInfoController extends Controller
 {
-    public function create(): View
+    public function create(CartManagementService $cartManagementService): View|RedirectResponse
     {
+        if ($cartManagementService->isEmpty()) 
+            return redirect()
+                ->route('order.create')
+                ->with('bad-request', 'Anda belum memiliki pesanan, silahkan dipilih terlebih dahulu.');
+
         return view('order.customer-info.create');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemToCartRequest;
+use App\Models\Service;
 use App\Resources\Cart;
 use App\Resources\CartItem;
 use App\Services\CartManagementService;
@@ -24,7 +25,7 @@ class CartManagementController extends Controller
     public function store(StoreItemToCartRequest $request, CartManagementService $cartManagementService)
     {
         $cartItem = CartItem::createFromRequest($request);
-        $service = ['id' => 1, 'name' => 'Layanan A', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco', 'price' => 20_000, 'shipping_cost' => 0, 'days_of_work' => 3];// @TODO: dummy
+        $service = Service::find($cartItem->getServiceId());
         $cartItem->setService($service);
 
         $cartManagementService->addItemToCart($cartItem);

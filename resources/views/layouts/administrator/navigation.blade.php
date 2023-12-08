@@ -11,6 +11,11 @@
             class="rounded px-4 py-2 text-gray-500 cursor-pointer font-medium hover:bg-gray-200 hover:text-gray-700 hover:underline">
             {{ __('Pesanan Masuk') }}
         </a>
+        <a 
+            href="{{ route('administrator.services.index') }}" 
+            class="rounded px-4 py-2 text-gray-500 cursor-pointer font-medium hover:bg-gray-200 hover:text-gray-700 hover:underline">
+            {{ __('Pengaturan Layanan') }}
+        </a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <a 

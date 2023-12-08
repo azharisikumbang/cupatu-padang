@@ -19,6 +19,8 @@
                 Buat pesanan
             </h2>
 
+            <x-bad-request-status class="mb-4" :status="session('bad-request')" />
+
             <div class="grid grid-cols-3 gap-4">
                 <div class="col-span-2">
                     <div class="p-6 bg-white rounded-lg shadow shadow-gray-500/20">
@@ -31,22 +33,24 @@
                             <div class="mb-4">
                                 <x-input-label for="shoe-name" :value="__('Silahkan pilih jenis layanan yang sesuai')" />
                                 <div class="grid grid-cols-3 gap-4 mt-1">
-                                    @foreach($services as $service)
-                                    <div @click="selectServiceItem({{ $service['id'] }})" :class="properties.form.service == {{ $service['id'] }} ? 'border-red-400' : ''" class="border-2 p-4 rounded-lg hover:border-red-400 hover:text-red-400 cursor-pointer">
-                                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ $service['name'] }}</h2>
+                                    @foreach($services['data'] as $service)
+                                    <div @click="selectServiceItem({{ $service['id'] }})" :class="properties.form.service == {{ $service['id'] }} ? 'border-red-400' : ''" class="border-2 p-4 rounded-lg hover:border-red-400 hover:text-red-400 cursor-pointer grid grid-col-1 content-between">
+                                        <div>
+                                            <h2 class="text-md font-semibold text-gray-900 dark:text-white">{{ $service['name'] }}</h2>
 
-                                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                            {{ substr($service['description'], 0, 50) }}...
-                                        </p>
-                                        <div class="text-sm text-gray-600 italic mt-4 w-full flex justify-between">
-                                            <span>Rp {{ $service['price'] }} - </span>
+                                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                                                {{ substr($service['description'], 0, 100) }}...
+                                            </p>
+                                        </div>
+                                        <div class="text-sm text-gray-400 italic mt-4 w-full flex justify-between">
+                                            <span>Rp {{ number_format($service['price'], 0, ',', '.') }}</span>
                                             <span>{{ $service['days_of_work'] }} hari pengerjaan.</span>
                                         </div>
                                     </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <x-primary-button @click="addItemToCart" class="w-full text-center py-4 !block mt-4">Tambahkah ke keranjang pesanan</x-primary-button>
+                            <x-primary-button @click="addItemToCart" class="w-full text-center py-4 !block mt-4">Tambahkah ke daftar pesanan</x-primary-button>
                         </div>
                     </div>
                 </div>

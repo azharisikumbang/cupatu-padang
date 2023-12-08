@@ -34,6 +34,11 @@ class CartManagementService
         $this->createEmptySession();
     }
 
+    public function isEmpty(): bool
+    {
+        return count($this->getCart()->getItems()) < 1;
+    }
+
     private function isSessionHasBeenBuild(): bool
     {
         return session()->has(self::SESSION_CART_NAME);

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Resources;
+
 use App\Http\Requests\StoreItemToCartRequest;
+use App\Models\Service;
 
 class CartItem
 {
@@ -11,7 +13,7 @@ class CartItem
 
     private int $serviceId;
 
-    private mixed $service = null;
+    private ?Service $service = null;
 
     /**
      * @return string
@@ -61,22 +63,22 @@ class CartItem
         $this->serviceId = $serviceId;
     }
 
-    public function setService(mixed $service): void
+    public function setService(?Service $service): void
     {
         $this->service = $service;
     }
 
-    public function getService(): mixed
+    public function getService(): Service
     {
         return $this->service;
     }
 
     public function getPrice(): float
     {
-        return $this->getService()['price']; // @TODO: harus dari model service
+        return $this->getService()?->price;
     }
 
-    public static function create(int $serviceId, string $shoeName, mixed $service = null): self
+    public static function create(int $serviceId, string $shoeName, ?Service $service = null): self
     {
         $item = new self();
         $item->setKey($item->createKey());
@@ -105,7 +107,7 @@ class CartItem
             'key' => $this->getKey(),
             'service_id' => $this->getServiceId(),
             'shoe_name' => $this->getShoeName(),
-            'service' => $this->getService()
+            'service' => $this->getService()?->toArray()
         ];
     }
 }

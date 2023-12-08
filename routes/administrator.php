@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\OrderController;
+use App\Http\Controllers\Administrator\ServiceManagementController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
-    ['prefix'=> '/administrator', 'middleware' => ['role:administrator']],
+    ['prefix'=> '/administrator', 'middleware' => ['role:administrator'], 'as' => 'administrator.'],
     function () {
-        Route::get('/dashboard', [DashboardController::class, '__invoke'])->name("administrator.dashboard.index");
-        Route::get('/orders', [OrderController::class, 'index'])->name("administrator.order.index");
-        Route::get('/orders/{order}', [OrderController::class, 'show'])->name("administrator.order.show");
+        Route::get('/dashboard', [DashboardController::class, '__invoke'])->name("dashboard.index");
+        Route::get('/orders', [OrderController::class, 'index'])->name("order.index");
+        Route::get('/orders/{order}', [OrderController::class, 'show'])->name("order.show");
+
+        Route::resource('/services', ServiceManagementController::class);
 });
