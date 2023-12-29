@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administrator;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
@@ -13,10 +13,12 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        return view('administrator.order.index', [
+        $userId = auth()->user()->id;
+
+        return view('customer.order.index', [
             'orders' => $request->has('cari') 
-                        ? Order::where('customer_name', 'like', "%{$request->get('cari')}%")->orderBy('created_at', 'desc')->paginate(10)->toArray()
-                        : Order::orderBy('created_at', 'desc')->paginate(10)->toArray()
+                        ? Order::where('customer_id', $userId)->where('customer_name', 'like', "%{$request->get('cari')}%")->orderBy('created_at', 'desc')->paginate(10)->toArray()
+                        : Order::where('customer_id', $userId)->orderBy('created_at', 'desc')->paginate(10)->toArray()
         ]);
     }
 
@@ -41,7 +43,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('administrator.order.show', [
+        if ($order->owner->id != auth()->user()->id) return abort('403');
+
+        return view('customer.order.show', [
             'order' => $order->load('details')->toArray()
         ]);
     }

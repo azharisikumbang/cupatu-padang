@@ -17,6 +17,7 @@ class UserOrderService
         
         /** @var Order $order */
         $order = Order::create([
+            'customer_id' => auth()->user()->id,
             'customer_name' => $customerInfo->getName(),
             'customer_address' => $customerInfo->getAddress(),
             'customer_contact' => $customerInfo->getContact(),

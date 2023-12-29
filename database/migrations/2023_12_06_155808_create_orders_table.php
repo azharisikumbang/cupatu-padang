@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id');
             $table->string('customer_name');
             $table->text('customer_address');
             $table->string('customer_contact');
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->string('courier_name')->nullable();
             $table->string('courier_contact')->nullable();
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('users');
         });
     }
 
