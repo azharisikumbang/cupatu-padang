@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contract\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +27,13 @@ class Order extends Model
         'courier_contact',
 
     ];
+
+    protected $appends = ['order_status_readable'];
+
+    public function getOrderStatusReadableAttribute()
+    {
+        return OrderStatus::tryFrom($this->getAttribute('order_status'))?->showReadable();
+    }
 
     public function details(): HasMany
     {

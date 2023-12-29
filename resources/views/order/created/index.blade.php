@@ -77,7 +77,10 @@
                     </div>
                 </div>
             </div>
-            <a class="w-full mt-4 block items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full text-center py-4" href="{{ route('homepage') }}">Kembali ke Halaman Utama</a>
+            <div>
+                <a class="w-full mt-4 block items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full text-center py-4" href="{{ route('order.show', ['order' => $order['id']]) }}">Ke Halaman Pesanan Saya</a>
+                <a class="w-full mt-4 block items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full text-center py-4" href="{{ route('homepage') }}">Kembali ke Halaman Utama</a>
+            </div>
         </div>
     </div>
 </x-guest-layout>

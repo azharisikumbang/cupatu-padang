@@ -1,8 +1,11 @@
 <x-customer-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Nomor Pesanan #') . $order['id'] }}
-        </h2>
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Nomor Pesanan #') . $order['id'] }}
+            </h2>
+            <small class="bg-orange-400 text-white shadow px-2 py-1 rounded">{{ strtoupper($order['order_status_readable']) }}</small>
+        </div>    
     </x-slot>
 
     <div class="py-12">

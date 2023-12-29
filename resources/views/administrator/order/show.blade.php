@@ -7,7 +7,9 @@
 
     <div>
         <div class="p-8 bg-white shadow rounded-lg">
-            <h3 class="uppercase text-md font-medium border-b pb-2 mb-4">Informasi Pemesanan</h3>
+            <div>
+                <h3 class="uppercase text-md font-medium border-b pb-2 mb-4">Informasi Pemesanan</h3>
+            </div>
             <div class="mb-2">
                 <div class="font-medium">Tanggal Pemesanan</div>
                 <div>{{ date('d/m/Y H:i', strtotime($order['created_at'])) }} WIB</div>
@@ -15,6 +17,10 @@
             <div class="mb-2">
                 <div class="font-medium">Estimasi Penyelesaian</div>
                 <div>{{ date('d/m/Y H:i', strtotime($order['est_date_completion'])) }} WIB</div>
+            </div>
+            <div class="mb-2">
+                <div class="font-medium">Status Pesanan</div>
+                <div>{{ $order['order_status_readable'] }}</div>
             </div>
             <div class="mb-2">
                 <div class="font-medium">Nama Pelanggan</div>
