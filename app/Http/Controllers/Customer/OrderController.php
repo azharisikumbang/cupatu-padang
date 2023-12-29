@@ -45,6 +45,8 @@ class OrderController extends Controller
     {
         if ($order->owner->id != auth()->user()->id) return abort('403');
 
+        dd($order->toArray());
+
         return view('customer.order.show', [
             'order' => $order->load('details')->toArray()
         ]);

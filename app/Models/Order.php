@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contract\OrderStatus;
+use App\Contract\Roles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,11 +29,18 @@ class Order extends Model
 
     ];
 
-    protected $appends = ['order_status_readable'];
+    protected $appends = ['order_status_readable', 'order_status_action_list'];
 
-    public function getOrderStatusReadableAttribute()
+    public function getOrderStatusReadableAttribute(): null|string
     {
-        return OrderStatus::tryFrom($this->getAttribute('order_status'))?->showReadable();
+        return OrderStatus::tryFrom($this->getAttribute('order_status'))?->getReadable();
+    }
+
+    public function getOrderStatusActionListAttribute(): null|array
+    {
+        if (false === auth()->user()->hasRole(Roles::ADMINISTRATOR)) return [];
+
+        return OrderStatus::tryFrom($this->getAttribute('order_status'))?->getActionList($this->getAttribute('id'));
     }
 
     public function details(): HasMany
