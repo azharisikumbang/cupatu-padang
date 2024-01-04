@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Resources\Cart;
 use App\Resources\CartItem;
+use Illuminate\Http\UploadedFile;
 
 class CartManagementService
 {

@@ -4,12 +4,15 @@ namespace App\Resources;
 
 use App\Http\Requests\StoreItemToCartRequest;
 use App\Models\Service;
+use Illuminate\Http\UploadedFile;
 
 class CartItem
 {
     private string $key;
 
     private string $shoeName;
+
+    private string $showImage;
 
     private int $serviceId;
 
@@ -68,7 +71,7 @@ class CartItem
         $this->service = $service;
     }
 
-    public function getService(): Service
+    public function getService(): ?Service
     {
         return $this->service;
     }
@@ -78,13 +81,24 @@ class CartItem
         return $this->getService()?->price;
     }
 
-    public static function create(int $serviceId, string $shoeName, ?Service $service = null): self
+    public function getShoeImage(): string
+    {
+        return $this->showImage;
+    }
+
+    public function setShoeImage(string $imageProperties): void
+    {
+        $this->showImage = $imageProperties;
+    }
+
+    public static function create(int $serviceId, string $shoeName, string $image, ?Service $service = null): self
     {
         $item = new self();
         $item->setKey($item->createKey());
         $item->setServiceId($serviceId);
         $item->setShoeName($shoeName);
         $item->setService($service);
+        $item->setShoeImage($image);
 
         return $item;
     }
@@ -92,8 +106,20 @@ class CartItem
     public static function createFromRequest(StoreItemToCartRequest $request): self
     {
         $validated = $request->validated();
+        $savedImage = self::saveTempImageToDisk($validated['shoe_image']);
 
-        return self::create($validated['service'], $validated['shoe_name']);
+        return self::create($validated['service'], $validated['shoe_name'], $savedImage);
+    }
+
+
+    private static function saveTempImageToDisk(UploadedFile $file): string
+    {
+        $path = 'images';
+        $filename = sprintf("%s.%s", md5(time()), $file->getClientOriginalExtension());
+
+        $file->storePubliclyAs('public/' . $path, $filename);
+
+        return $path . DIRECTORY_SEPARATOR . $filename;
     }
 
     private function createKey(): string
@@ -107,6 +133,7 @@ class CartItem
             'key' => $this->getKey(),
             'service_id' => $this->getServiceId(),
             'shoe_name' => $this->getShoeName(),
+            'shoe_image' => $this->getShoeImage(),
             'service' => $this->getService()?->toArray()
         ];
     }

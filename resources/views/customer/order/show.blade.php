@@ -55,7 +55,10 @@
                         <tr class="border-b">
                             <td class="px-6 py-3 text-center">{{ $loop->iteration }}</td>
                             <td class="px-6 py-3 w-64">{{ $orderItem['service_name'] }}</td>
-                            <td class="px-6 py-3">{{ $orderItem['shoe_brand_name'] }}</td>
+                            <td class="px-6 py-3">
+                                {{ $orderItem['shoe_brand_name'] }}
+                                <small>(<a class="text-red-500 hover:underline" href="{{ url('storage/' . $orderItem['shoe_image']) }}">Lihat Gambar</a>)</small>
+                            </td>
                             <td class="px-6 py-3 text-right">Rp. {{ number_format($orderItem['service_price'], 0, ',', '.') }}</td>
                         </tr>
                         @endforeach

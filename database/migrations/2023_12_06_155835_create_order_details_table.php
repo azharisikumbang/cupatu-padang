@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('service_name');
             $table->decimal('service_price');
             $table->string('shoe_brand_name');
+            $table->string('shoe_image')->nullable();
 
             $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();

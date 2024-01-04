@@ -31,6 +31,13 @@
                                 <x-input-error :messages="$errors->get('shoe-name')" class="mt-2" />
                             </div>
                             <div class="mb-4">
+                                <x-input-label for="shoe-name" :value="__('Ungggah Gambar Sepatu')" />
+                                <x-text-input @change="uploadImageToPreview" id="shoe-name" class="block mt-1 w-full" type="file" accept="image/*" name="shoe-image" required />
+                                <x-input-error :messages="$errors->get('shoe-name')" class="mt-2" />
+                                
+                                <img id="order-image-preview" class="my-2 rounded border border-gray-300 p-2 w-64" style="display: none" src="" />
+                            </div>
+                            <div class="mb-4">
                                 <x-input-label for="shoe-name" :value="__('Silahkan pilih jenis layanan yang sesuai')" />
                                 <div class="grid grid-cols-3 gap-4 mt-1">
                                     @foreach($services['data'] as $service)
@@ -60,11 +67,16 @@
                         <div class="flex flex-col gap-2">
                             <template x-if="properties.data.cart.items > 0" x-for="cart in properties.data.cart.items">
                                 <div class="flex justify-between">
-                                    <div>
-                                        <div x-text="cart.shoe_name"></div>
-                                        <div class="text-sm italic text-gray-400">
-                                            <span x-text="cart.service.name"></span>
-                                            - <button @click="removeItemFromCart(cart.key)" type="button" class="text-red-500 hover:underline">hapus</button>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-12 h-full rounded border border-gray-300 ">
+                                            <img id="order-image-preview" class="w-full object-cover" :src="'{{ asset('storage') }}/' + cart.shoe_image" />
+                                        </div>
+                                        <div>
+                                            <div x-text="cart.shoe_name"></div>
+                                            <div class="text-sm italic text-gray-400">
+                                                <span x-text="cart.service.name"></span>
+                                                - <button @click="removeItemFromCart(cart.key)" type="button" class="text-red-500 hover:underline">hapus</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div x-text="currencyToRupiah(cart.service.price)"></div>
@@ -99,13 +111,18 @@
                     '/api/cart/add',
                     this.createFormData({
                         'service': this.properties.form.service,
-                        'shoe_name': this.properties.form.shoe_name
+                        'shoe_name': this.properties.form.shoe_name,
+                        'shoe_image': this.properties.form.shoe_image,
                     }),
                     response => {
                         this.loadCartItem();
 
                         this.properties.form.service = null;
                         this.properties.form.shoe_name = null;
+                        this.properties.form.shoe_image = null;
+
+                        const imageWrapper = document.getElementById('order-image-preview');
+                        imageWrapper.style.display = "none";
                     },
                     err => {
                         console.error(err);
@@ -134,11 +151,27 @@
 
                         this.properties.form.service = null;
                         this.properties.form.shoe_name = null;
+                        this.properties.form.shoe_image = null;
+
+                        const imageWrapper = document.getElementById('order-image-preview');
+                        imageWrapper.style.display = "none";
                     },
                     err => {
                         console.error(err);
                     }
                 )
+            },
+            "uploadImageToPreview": function (event) {
+                // this.properties.form.shoe_image = null;
+                const [image] = event.target.files;
+
+                if (image) {
+                    const imageWrapper = document.getElementById('order-image-preview');
+                    imageWrapper.src = URL.createObjectURL(image);
+                    imageWrapper.style.display = "block";
+
+                    this.properties.form.shoe_image = image;
+                }
             }
         };
 
@@ -194,7 +227,8 @@
                     },
                     "form": {
                         "shoe_name": "",
-                        "service": null
+                        "service": null,
+                        "shoe_image": null
                     }
                 },
                 "init": function() {

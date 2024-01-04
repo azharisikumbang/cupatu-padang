@@ -49,10 +49,15 @@
                             <div class="flex flex-col gap-2">
                                 <template x-for="cart in properties.data.cart.items">
                                     <div class="flex justify-between">
-                                        <div>
-                                            <div x-text="cart.shoe_name"></div>
-                                            <div class="text-sm italic text-gray-400">
-                                                <span x-text="cart.service.name"></span>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-12 h-full rounded border border-gray-300 ">
+                                                <img id="order-image-preview" class="w-full object-cover" :src="'{{ asset('storage') }}/' + cart.shoe_image" />
+                                            </div>
+                                            <div>
+                                                <div x-text="cart.shoe_name"></div>
+                                                <div class="text-sm italic text-gray-400">
+                                                    <span x-text="cart.service.name"></span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div x-text="currencyToRupiah(cart.service.price)">Rp 20.000</div>

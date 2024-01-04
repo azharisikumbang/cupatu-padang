@@ -14,5 +14,6 @@ class OrderDetail extends Model
         'service_name',
         'service_price',
         'shoe_brand_name',
+        'shoe_image'
     ];
 }

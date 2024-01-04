@@ -23,7 +23,8 @@ class StoreItemToCartRequest extends FormRequest
     {
         return [
             'service' => 'required',
-            'shoe_name' => 'required'
+            'shoe_name' => 'required',
+            'shoe_image' => 'required'
         ];
     }
 }
