@@ -67,8 +67,8 @@
 
     <div>
         <div class="p-8 bg-white shadow rounded-lg">
-            <div>
-                <h3 class="uppercase text-md font-medium border-b pb-2 mb-4">Informasi Pemesanan</h3>
+            <div class="uppercase text-md font-medium border-b pb-2 mb-4 flex items-center gap-4">
+                <h3 class="">Informasi Pemesanan</h3>
             </div>
             <div class="mb-2">
                 <div class="font-medium">Tanggal Pemesanan</div>
@@ -98,7 +98,12 @@
             </div>
             <div class="mb-2">
                 <div class="font-medium">Total Tagihan</div>
-                <div>Rp. {{ number_format($order['order_price_total'], 0, ',', '.') }}</div>
+                <div>
+                    <span>Rp. {{ number_format($order['order_price_total'], 0, ',', '.') }} </span>
+                    <small>
+                        (<a href="{{ route('administrator.order-invoice.export', ['order' => $order['id']]) }}" target="_blank" class="text-red-500 hover:text-red-700 hover:underline">Download Invoice</a>)
+                    </small>
+                </div>
             </div>
             
         </div>
@@ -121,7 +126,7 @@
                         <td class="px-6 py-3 w-64">{{ $orderItem['service_name'] }}</td>
                         <td class="px-6 py-3">
                             {{ $orderItem['shoe_brand_name'] }}
-                            <small>(<a class="text-red-500 hover:underline" href="{{ url('storage/' . $orderItem['shoe_image']) }}">Lihat Gambar</a>)</small>
+                            <small>(<a target="_blank" class="text-red-500 hover:underline" href="{{ url('storage/' . $orderItem['shoe_image']) }}">Lihat Gambar</a>)</small>
                         </td>
                         <td class="px-6 py-3 text-right">Rp. {{ number_format($orderItem['service_price'], 0, ',', '.') }}</td>
                     </tr>

@@ -34,7 +34,12 @@
                 </div>
                 <div class="mb-2">
                     <div class="font-medium">Total Tagihan</div>
-                    <div>Rp. {{ number_format($order['order_price_total'], 0, ',', '.') }}</div>
+                    <div>
+                        <span>Rp. {{ number_format($order['order_price_total'], 0, ',', '.') }} </span>
+                        <small>
+                            (<a href="{{ route('order-invoice.export', ['order' => $order['id']]) }}" target="_blank" class="text-red-500 hover:text-red-700 hover:underline">Download Invoice</a>)
+                        </small>
+                    </div>
                 </div>
                 
             </div>

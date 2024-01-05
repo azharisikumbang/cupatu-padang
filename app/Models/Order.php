@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contract\OrderStatus;
 use App\Contract\Roles;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -51,5 +52,10 @@ class Order extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
+    }
+
+    public function isOrderIsOwnByAuthenticatedUser(Authenticatable|User $user): bool
+    {
+        return $this->owner->id === $user->getAttribute('id');
     }
 }
