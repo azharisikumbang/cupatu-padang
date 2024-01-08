@@ -32,5 +32,16 @@ class AdminAndRoleSeeder extends Seeder
         $administratorRole = Role::where('name', Roles::ADMINISTRATOR->value)->first();
 
         $user->assignRole($administratorRole);
+
+        // manager
+        $user = User::factory()->create([
+            'name' => 'manager',
+            'email'=> 'manager@web.local',
+            'password'=> Hash::make('12345678'),
+        ]);
+
+        $managerRole = Role::where('name', Roles::MANAGER->value)->first();
+
+        $user->assignRole($managerRole);
     }
 }

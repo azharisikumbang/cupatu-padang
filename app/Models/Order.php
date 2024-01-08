@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Order extends Model
 {
@@ -57,5 +58,16 @@ class Order extends Model
     public function isOrderIsOwnByAuthenticatedUser(Authenticatable|User $user): bool
     {
         return $this->owner->id === $user->getAttribute('id');
+    }
+
+    public function countOrderDoneAndCancelListMonthly(int $year): Collection
+    {
+        return \DB::table($this->getTable())
+            ->selectRaw("MONTH(created_at) as 'bulan', COUNT(IF(order_status = 'SELESAI', 1, NULL)) as 'jumlah_pesanan_selesai', COUNT(IF(order_status = 'BATAL', 1, NULL)) as 'jumlah_pesanan_batal'")
+            ->whereIn('order_status', [OrderStatus::SELESAI->value, OrderStatus::BATAL->value])
+            ->whereYear('created_at', $year)
+            ->groupByRaw("MONTH(created_at)")
+            ->get()
+        ;
     }
 }

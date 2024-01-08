@@ -31,4 +31,5 @@ Route::delete('/api/cart/{key}', [CartManagementController::class, 'destroy'])->
 
 require __DIR__ .'/customer.php';
 require __DIR__ .'/administrator.php';
+require __DIR__ .'/manager.php';
 require __DIR__ .'/auth.php';

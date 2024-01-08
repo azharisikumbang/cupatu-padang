@@ -22,7 +22,7 @@ enum Roles: string
         return match($this) {
             self::ADMINISTRATOR => '/administrator/dashboard',
             self::CUSTOMER => RouteServiceProvider::HOME,
-            self::MANAGER => '/management/dashboard',
+            self::MANAGER => '/manager/dashboard',
             default => RouteServiceProvider::HOME,
         };
     }
