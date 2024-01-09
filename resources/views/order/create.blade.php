@@ -32,7 +32,7 @@
                             </div>
                             <div class="mb-4">
                                 <x-input-label for="shoe-name" :value="__('Ungggah Gambar Sepatu')" />
-                                <x-text-input @change="uploadImageToPreview" id="shoe-name" class="block mt-1 w-full" type="file" accept="image/*" name="shoe-image" required />
+                                <x-text-input @change="uploadImageToPreview" id="shoe-image" class="block mt-1 w-full" type="file" accept="image/*" name="shoe-image" required />
                                 <x-input-error :messages="$errors->get('shoe-name')" class="mt-2" />
                                 
                                 <img id="order-image-preview" class="my-2 rounded border border-gray-300 p-2 w-64" style="display: none" src="" />
@@ -123,6 +123,9 @@
 
                         const imageWrapper = document.getElementById('order-image-preview');
                         imageWrapper.style.display = "none";
+
+                        const imageInputFile = document.getElementById('shoe-image');
+                        imageInputFile.value = null;
                     },
                     err => {
                         console.error(err);
@@ -155,6 +158,9 @@
 
                         const imageWrapper = document.getElementById('order-image-preview');
                         imageWrapper.style.display = "none";
+
+                        const imageInputFile = document.getElementById('shoe-image');
+                        imageInputFile.value = null;
                     },
                     err => {
                         console.error(err);
@@ -162,7 +168,7 @@
                 )
             },
             "uploadImageToPreview": function (event) {
-                // this.properties.form.shoe_image = null;
+                this.properties.form.shoe_image = null;
                 const [image] = event.target.files;
 
                 if (image) {
