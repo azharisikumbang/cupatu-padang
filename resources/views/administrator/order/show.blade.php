@@ -6,7 +6,7 @@
             </h2>
 
             <div class="flex justify-between gap-2">
-                @if($order['order_status_action_list']['actual_next_order_status']):
+                @if($order['order_status_action_list']['actual_next_order_status'])
                 <div>
                     <x-primary-button 
                     type="button"
@@ -33,7 +33,7 @@
                 </div>
                 @endif
 
-                @if($order['order_status_action_list']['actual_prev_order_status']):
+                @if($order['order_status_action_list']['actual_prev_order_status'])
                 <div>
                     <x-danger-button 
                     type="button"

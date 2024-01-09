@@ -36,7 +36,7 @@ enum OrderStatus: string
             self::PENJEMPUTAN => $this->createActionList($orderId, self::DIPROSES->value, self::MENUNGGU_KONFIRMASI->value, 'Konfirmasi Selesai Dijemput', 'Kembalikan Status Sebelumnya'),
             self::DIPROSES => $this->createActionList($orderId, self::PENGANTARAN->value, self::PENJEMPUTAN->value, 'Konfirmasi Selesai Perawatan', 'Kembalikan Status Sebelumnya'),
             self::PENGANTARAN => $this->createActionList($orderId, self::SELESAI->value, self::DIPROSES->value, 'Konfirmasi Selesai Diantarkan', 'Kembalikan Status Sebelumnya'),
-            self::BATAL => $this->createActionList($orderId, null, self::DIPROSES->value),
+            self::BATAL => $this->createActionList($orderId, null, null),
             self::SELESAI => $this->createActionList($orderId, null, null),
             default => $this->createActionList($orderId, self::PENJEMPUTAN->value),
         };
