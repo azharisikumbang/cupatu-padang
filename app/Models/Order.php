@@ -70,4 +70,23 @@ class Order extends Model
             ->get()
         ;
     }
+
+    public function countIncomeByYearAndMonth(int $year, int $month = 0): Collection
+    {
+        return \DB::table($this->getTable())
+            ->selectRaw("YEAR(created_at) as 'tahun', MONTH(created_at) as 'bulan', SUM(order_price_total) as 'pemasukan'")
+            ->where('order_status', OrderStatus::SELESAI->value)
+            ->whereYear('created_at', $year)
+            ->when($this->isValidMonth($month), function (\Illuminate\Database\Query\Builder $query) use ($month) {
+                $query->whereMonth('created_at', $month);
+            })
+            ->groupByRaw("YEAR(created_at), MONTH(created_at)")
+            ->get()
+        ;
+    }
+
+    private function isValidMonth(int $month): bool
+    {
+        return ($month >= 1 && $month <= 12);
+    }
 }
