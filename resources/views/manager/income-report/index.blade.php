@@ -25,7 +25,7 @@
                     <tr>
                         <th scope="col" class="px-6 py-3 w-12 text-center border">No</th>
                         <th scope="col" class="px-6 py-3 text-center w-96 border">Bulan</th>
-                        <th scope="col" class="px-6 py-3 text-center border">Total Pendapatan</th>
+                        <th scope="col" class="px-6 py-3 text-center border">Total Pendapatan*</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +55,10 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
+
+        <div class="mt-4 text-sm italic text-gray-400">
+            <strong>Catatan: *Pendapatan adalah dihitung dari total pemesanan yang telah berhasil diselesaikan.</strong>
         </div>
         
     </div>
