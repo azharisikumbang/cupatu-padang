@@ -4,7 +4,7 @@
 <x-manager-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ __('Laporan Pemesanan Bulanan - Tahun ') . $_GET['tahun'] ?? date('Y') }}
+            {{ __('Laporan Pemesanan Bulanan - Tahun ') . ($_GET['tahun'] ?? date('Y')) }}
         </h2>
     </x-slot>
 

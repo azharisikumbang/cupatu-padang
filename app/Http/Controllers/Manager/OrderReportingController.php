@@ -14,10 +14,10 @@ class OrderReportingController extends Controller
      */
     public function __invoke(Request $request, OrderReportingService $orderReportingService)
     {
-        $month = $request->has('tahun') ? $request->get('tahun') : 0;
+        $year = $request->has('tahun') ? $request->get('tahun') : date('Y');
 
         return view("manager.order-reporting.index", [
-            'data' => $orderReportingService->generateDoneAncCancelOrderMonthly($month)
+            'data' => $orderReportingService->generateDoneAncCancelOrderMonthly($year)
         ]);
     }
 }
