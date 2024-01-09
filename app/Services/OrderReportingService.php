@@ -8,13 +8,13 @@ class OrderReportingService
 {
     public function generateDoneAncCancelOrderMonthly(int $year): array
     {
-        if ($year > date('Y')) return [];
+        if ($this->isHigherThanCurrentYear($year)) return [];
 
         return (new Order)->countOrderDoneAndCancelListMonthly($year)->toArray();
     }
 
-    private function isValidMonthNumber($month) : bool
+    private function isHigherThanCurrentYear(int $year) : bool
     {
-        return ($month > 0 || $month <= 12);
+        return ($year > date('Y'));
     }
 }
