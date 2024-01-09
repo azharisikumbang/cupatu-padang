@@ -159,8 +159,8 @@
 				<tr class="item">
 					<td>
                         <span>Layanan {{ $orderItem['service_name'] }}</span>
-                        <span>-</span>
-                        <i style="color:gray">sepatu: {{ $orderItem['shoe_brand_name'] }}</i>
+						<br>
+						<small style="color:gray; font-style: italic">merk sepatu: {{ $orderItem['shoe_brand_name'] }}</small>                        
                     </td>
 
 					<td>Rp. {{ number_format($orderItem['service_price'], 0, ',', '.') }}</td>
