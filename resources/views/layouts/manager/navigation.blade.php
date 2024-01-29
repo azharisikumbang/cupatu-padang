@@ -21,6 +21,11 @@
             class="rounded px-4 py-2 text-gray-500 cursor-pointer font-medium hover:bg-gray-200 hover:text-gray-700 hover:underline">
             {{ __('Laporan Pendapatan') }}
         </a>
+        <a 
+            href="{{ route('manager.change-password') }}" 
+            class="rounded px-4 py-2 text-gray-500 cursor-pointer font-medium hover:bg-gray-200 hover:text-gray-700 hover:underline">
+            {{ __('Ganti Kata Sandi') }}
+        </a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <a 

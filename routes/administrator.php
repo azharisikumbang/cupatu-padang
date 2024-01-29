@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administrator\AccountPasswordController;
 use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\ExportOrderInvoicePdfController;
 use App\Http\Controllers\Administrator\OrderController;
@@ -18,4 +19,6 @@ Route::group(
         Route::get('/order/{order}/invoice', [ExportOrderInvoicePdfController::class, '__invoke'])->name('order-invoice.export');
         
         Route::resource('/services', ServiceManagementController::class);
+
+        Route::get('/change-password', [AccountPasswordController:: class, 'edit'])->name('change-password');
 });
